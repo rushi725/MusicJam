@@ -1,0 +1,11 @@
+body{
+	background: white url(images/whitw_texture.jpg);
+}
+
+.navbar{
+	border-radius: 0;
+}
+
+.navbar-brand{
+	font-family: 'Satisfy',cursive;
+}

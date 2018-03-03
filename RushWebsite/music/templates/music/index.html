@@ -1,0 +1,44 @@
+<!-- loads the path to your static files-->
+{% extends 'music/base.html'%}
+{% block albums_active %}active{% endblock %}
+
+{% block body %}
+	<div class="albums-container container-fluid">
+		<div class="row">
+
+		{% for album in all_albums %}
+			<div class="col-sm-4 col-lg-2">
+				<div class="thumbnail">
+				<!---Album logo-->
+		<a href="{% url 'music:detail' album.id %}">
+			<img class="img-responsive" src="{{album.album_logo.url}}"/>
+		</a>
+
+		<div class="caption">
+			<h2>{{ album.album_title }}</h2>
+			<h4>{{ album.album_artist }}</h4>
+
+			<!--detailes-->
+		<a href="{% url 'music:detail' album.id %}" class="btn btn-primary btn-sm">View Details</a>
+
+		<!--delete-->
+		<form action="{% url 'music:album-delete' album.id %}" method="post" style="display: inline">
+			{% csrf_token %}
+			<input type="hidden" name="album_id" value="{{ album.id }}"/>
+			<button type="submit" class="btn btn-default btn-sm">
+				<span class="glyphicon glyphicon-trash"></span>
+			</button>
+		</form>
+
+		<!--favoirte-->
+		<a href="#" class="btn btn-default btn-sm btn-favorite">
+			<span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>
+		</a>
+		</div>
+	</div>
+</div>
+	{% endfor %}
+	</div>
+</div>
+{% endblock%}
+
